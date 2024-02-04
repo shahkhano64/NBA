@@ -16,8 +16,5 @@ jobs:
       run: |
         pip install gspread oauth2client requests
     - name: Run script
-      env:
-        GOOGLE_CREDENTIALS_JSON: ${{ secrets.GOOGLE_CREDENTIALS }}
       run: |
-        echo "$GOOGLE_CREDENTIALS_JSON" > keys.json
         python test.py

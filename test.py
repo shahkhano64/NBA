@@ -3,15 +3,45 @@ import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 
 def fetch_nba_data():
+
+
     url = "https://stats.nba.com/stats/leaguedashteamstats?Conference=&DateFrom=&DateTo=&Division=&GameScope=&GameSegment=&Height=&ISTRound=&LastNGames=5&LeagueID=00&Location=&MeasureType=Four%20Factors&Month=0&OpponentTeamID=0&Outcome=&PORound=0&PaceAdjust=N&PerMode=PerGame&Period=0&PlayerExperience=&PlayerPosition=&PlusMinus=N&Rank=N&Season=2023-24&SeasonSegment=&SeasonType=Regular%20Season&ShotClockRange=&StarterBench=&TeamID=0&TwoWay=0&VsConference=&VsDivision="
+    
     headers = {
-        "User-Agent": "Mozilla/5.0",
-        "Accept": "application/json",
+        "Accept": "*/*",
+        "Accept-Encoding": "gzip, deflate, br",
+        "Accept-Language": "en-US,en;q=0.9",
+        "Cache-Control": "no-cache",
+        "Connection": "keep-alive",
+        "Host": "stats.nba.com",
+        "Origin": "https://www.nba.com",
+        "Pragma": "no-cache",
         "Referer": "https://www.nba.com/",
+        "Sec-Ch-Ua": '"Not A Brand";v="99", "Google Chrome";v="121", "Chromium";v="121"',
+        "Sec-Ch-Ua-Mobile": "?0",
+        "Sec-Ch-Ua-Platform": '"Windows"',
+        "Sec-Fetch-Dest": "empty",
+        "Sec-Fetch-Mode": "cors",
+        "Sec-Fetch-Site": "same-site",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36",
     }
 
-    response = requests.get(url, headers=headers)
+  
+    # headers = {
+    #     "User-Agent": "Mozilla/5.0",
+    #     "Accept": "application/json",
+    #     "Referer": "https://www.nba.com/",
+    # }
+    print(url)
+    try:
+        response = requests.get(url, headers=headers, timeout=10)
+        # response = requests.get(url, headers=headers, timeout=10)
+        print(response.status_code)
+    except Exception as e:
+        print(f"An error occurred: {e}")
+
     if response.status_code == 200:
+        print(response.json())
         return response.json()
     else:
         print(f"Failed to fetch data: {response.status_code}")
